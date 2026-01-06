@@ -177,12 +177,12 @@ This simulation demonstrates how brute-force attacks are detected through authen
 
 ## Mitigation & Response
 
-Enforce account lockout policies after repeated authentication failures.
-Implement SSH protection mechanisms such as Fail2Ban.
-Restrict RDP access using firewall rules, IP allowlists, and VPNs.
-Enable multi-factor authentication (MFA) for all remote access services.
-Configure Splunk alerts for excessive failed authentication attempts.
-Monitor, block, and blacklist offending IP addresses at the network level.
+- Enforce account lockout policies after repeated authentication failures.
+- Implement SSH protection mechanisms such as Fail2Ban.
+- Restrict RDP access using firewall rules, IP allowlists, and VPNs.
+- Enable multi-factor authentication (MFA) for all remote access services.
+- Configure Splunk alerts for excessive failed authentication attempts.
+- Monitor, block, and blacklist offending IP addresses at the network level.
 
 
 
