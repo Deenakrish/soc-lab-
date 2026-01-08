@@ -55,6 +55,8 @@ A Remote Desktop session was initiated from Kali using valid credentials for the
 
 The authentication succeeded, resulting in remote desktop access, privilege usage, and process creation on the Windows host.
 
+--- 
+
 ## Logs Generated
 ### Ubuntu – Raw Log Output
 
@@ -84,6 +86,8 @@ The authentication succeeded, resulting in remote desktop access, privilege usag
 
 These logs confirm successful remote authentication using valid credentials, followed by system-level activity, indicating potential account compromise.
 
+--- 
+
 ### Windows – Raw Log Output
 
     EventCode=4624   (Successful Logon)
@@ -105,6 +109,8 @@ Multiple privilege usage and process creation events were recorded shortly after
 
 These events indicate that a valid user account logged in remotely and executed privileged operations, consistent with compromised account behavior.
 
+--- 
+
 ## Detection Logic (Splunk SPL)
 ### Ubuntu – Successful SSH Login Detection
 
@@ -117,6 +123,8 @@ These events indicate that a valid user account logged in remotely and executed 
     (EventCode=4624 OR EventCode=4672 OR EventCode=4673 OR EventCode=4688)
     | stats count by Account_Name, EventCode, host
 
+--- 
+
 ## Alert Logic (SOC Use Case)
 
 ### Trigger Conditions:
@@ -128,6 +136,8 @@ These events indicate that a valid user account logged in remotely and executed 
 - Compromised Account / Valid Credential Abuse
 - Escalate if root-level or administrator-level actions are detected
 
+--- 
+
 ## Severity Assessment
 
 | Metric             | Value             |
@@ -136,6 +146,8 @@ These events indicate that a valid user account logged in remotely and executed 
 | Attack Complexity  | Low               |
 | Impact Potential   | Very High         |
 | Privilege Required | Valid Credentials |
+
+--- 
 
 ## Detection Confidence
 
@@ -148,6 +160,8 @@ High
 - Immediate privileged and system-level activity
 - Strong behavioral indicators beyond simple login success
 
+--- 
+
 ## Analysis
 
 - Unlike brute-force attacks, this activity involved successful authentication, making it more dangerous.
@@ -156,9 +170,13 @@ High
 - On Windows, privilege assignment and sensitive operations followed the successful logon.
 - Such behavior strongly indicates stolen, reused, or compromised credentials.
 
+--- 
+
 ## SOC Conclusion
 
 This simulation demonstrates how compromised accounts manifest in logs through successful authentication followed by privileged actions. Although credentials were valid, contextual indicators such as source IP, timing, and post-login behavior enable SOC analysts to detect anomalous activity consistent with account compromise.
+
+--- 
 
 ## Mitigation & Response
 
