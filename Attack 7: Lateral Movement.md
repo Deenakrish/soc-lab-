@@ -65,6 +65,8 @@ Observed Behavior:
 - Remote command execution
 - Privileged access confirmed
 
+--- 
+
 ## Logs Generated
 ### Ubuntu – Raw Logs
     2025-12-30T10:54:34.074555+05:30 lucifer-VirtualBox sshd[5224]: 
@@ -96,6 +98,8 @@ Observed Behavior:
     Process Command Line: cmd.exe /c echo LATERAL_MOVEMENT_TEST
     Creator Process Name: C:\Windows\System32\cmd.exe
 
+--- 
+
 ## Log Explanation
 ### Ubuntu
 
@@ -114,6 +118,8 @@ Observed Behavior:
 - Event ID 4688: Post-authentication remote command execution
 - Confirms credential-based lateral movement and elevated access.
 
+--- 
+
 ## Detection Logic (Splunk SPL)
 ### Ubuntu – SSH Lateral Movement
     index=linux_index sourcetype=linux_secure OR sourcetype=linux_audit
@@ -124,6 +130,8 @@ Observed Behavior:
     index=windows_index (EventCode=4624 OR EventCode=4672 OR EventCode=4688)
     | search Source_Network_Address=10.178.180.19
     | table _time EventCode Account_Name Source_Network_Address New_Process_Name
+
+--- 
 
 ## Alert Logic (SOC Use Case)
 ### Trigger Conditions
@@ -139,6 +147,8 @@ Observed Behavior:
 - Multiple remote logons within short time window
 - Remote execution of sensitive commands
 
+--- 
+
 ## Severity Assessment
 
 | Metric               | Value             |
@@ -148,6 +158,8 @@ Observed Behavior:
 | Impact Potential     | High              |
 | Privilege Required   | Valid credentials |
 | Detection Confidence | High              |
+
+--- 
 
 ## Analysis
 
@@ -162,10 +174,14 @@ Observed Behavior:
   - T1047 – Windows Management Instrumentation
   - T1078 – Valid Accounts
 
+--- 
+
 ## SOC Conclusion
 
 Attack 07 successfully validated SOC detection of lateral movement across Linux and Windows systems.
 Authentication, privilege escalation, and post-access activity were captured and correlated in Splunk, providing actionable indicators for analyst investigation.
+
+--- 
 
 ## Mitigation & Response
 
