@@ -71,7 +71,7 @@ Multiple authentication attempts were made, resulting in SSH rejecting the user 
     Source Workstation: kali
     Error Code: 0xC0000064
 
-#### Windows – Log Explanation
+### Windows – Log Explanation
 
 - Event ID: 4625 – Failed logon attempt
 - Logon Type: 3 (Network logon – RDP)
@@ -102,7 +102,7 @@ These events confirm that Windows attempted to validate a non-existent username,
     2025-12-24T15:11:10.778125+05:30 lucifer-VirtualBox sshd[4178]:
     Connection closed by invalid user invaliduser 10.178.180.19 port 40488 [preauth]
 
-#### Ubuntu – Log Explanation
+### Ubuntu – Log Explanation
 
 - Log File: /var/log/auth.log
 - Service: sshd
