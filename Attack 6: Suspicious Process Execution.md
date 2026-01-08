@@ -62,6 +62,8 @@ A legitimate binary (cmd.exe) was copied to a deceptive filename (svchost-update
 
 Windows Security Event ID 4688 recorded the suspicious process execution.
 
+--- 
+
 ## Logs Generated
 ### Ubuntu – Raw Logs
 
@@ -89,6 +91,8 @@ Windows Security Event ID 4688 recorded the suspicious process execution.
     Keywords: Audit Success
     Time: 2025-12-25T20:54:42.711+05:30
 
+--- 
+
 ## Log Explanation
 ### Ubuntu
 
@@ -112,6 +116,8 @@ Execution of binaries from /tmp under root context strongly indicates suspicious
 
 This event confirms execution of a masqueraded binary using a deceptive system-like name from a non-standard directory.
 
+--- 
+
 ## Detection Logic (Splunk SPL)
 ### Ubuntu – Suspicious Binary Execution
 
@@ -124,6 +130,8 @@ This event confirms execution of a masqueraded binary using a deceptive system-l
     index=windows_index EventCode=4688
     | search New_Process_Name="*svchost*" AND NOT New_Process_Name="*System32*"
     | table _time Account_Name New_Process_Name Creator_Process_Name Process_Command_Line
+
+--- 
 
 ## Alert Logic (SOC Use Case)
 ### Trigger Conditions
@@ -138,6 +146,8 @@ This event confirms execution of a masqueraded binary using a deceptive system-l
 - Repeated executions from public or world-writable paths
 - Correlation with prior privilege escalation events
 
+--- 
+
 ## Severity Assessment
 
 | Metric               | Value  |
@@ -147,6 +157,8 @@ This event confirms execution of a masqueraded binary using a deceptive system-l
 | Impact Potential     | High   |
 | Privilege Required   | Medium |
 | Detection Confidence | High   |
+
+--- 
 
 ## Analysis
 
@@ -159,10 +171,14 @@ Key indicators include:
 - Absence of trusted or signed execution paths
 - These behaviors align with MITRE ATT&CK T1036 (Masquerading) and T1059 (Command Execution).
 
+--- 
+
 ## SOC Conclusion
 
 Attack 06 successfully demonstrated suspicious process execution on both Linux and Windows platforms.
 Audit logs and Windows Security logs provided clear visibility into masqueraded binary execution with elevated privileges. Proper SIEM correlation enables high-confidence detection of this post-exploitation behavior.
+
+--- 
 
 ## Mitigation & Response
 
@@ -172,5 +188,3 @@ Audit logs and Windows Security logs provided clear visibility into masqueraded 
 - Enable full command-line logging and auditd rules
 - Isolate affected endpoints immediately upon detection
 - Perform hash-based IOC validation and memory inspection
-chmod +x /tmp/systemd-update
-/tmp/systemd-update
