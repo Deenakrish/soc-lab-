@@ -60,6 +60,8 @@ A brute-force RDP authentication attempt was launched from Kali targeting the Wi
 
 Although a full RDP session was not established, multiple credential validation attempts were logged on the Windows system.
 
+--- 
+
 ## Logs Generated
 ## Ubuntu – Raw Log Output
 
@@ -85,6 +87,7 @@ Although a full RDP session was not established, multiple credential validation 
 - Result: Multiple authentication failures
 
 These logs confirm repeated failed SSH login attempts originating from a single external IP address, a strong indicator of brute-force behavior.
+--- 
 
 ## Windows – Raw Log Output
 
@@ -116,7 +119,7 @@ These logs confirm repeated failed SSH login attempts originating from a single 
 - Error Code: 0xC000006A (Invalid credentials)
 
 These events confirm repeated remote credential validation failures typical of brute-force attacks against Windows network services.
-
+--- 
 ## Detection Logic (Splunk SPL)
 ### Ubuntu – SSH Brute Force Detection
 
@@ -129,7 +132,7 @@ These events confirm repeated remote credential validation failures typical of b
     index=windows_index sourcetype="WinEventLog:Security" (EventCode=4625 OR EventCode=4776)
     | stats count by Account_Name, Source_Network_Address, EventCode
     | where count > 5
-
+--- 
 ## Alert Logic (SOC Use Case)
 
 ### Trigger Conditions:
@@ -141,6 +144,7 @@ Within a short time window (≤ 5 minutes)
 
 - Credential Access – Brute Force
 - Escalate severity if multiple accounts or hosts are targeted
+--- 
 
 ## Severity Assessment
 
@@ -150,6 +154,8 @@ Within a short time window (≤ 5 minutes)
 | Attack Complexity  | Low   |
 | Impact Potential   | High  |
 | Privilege Required | None  |
+
+--- 
 
 ## Detection Confidence
 
@@ -162,6 +168,8 @@ Very High
 - Consistent user targeting
 - Well-known brute-force log patterns on both Linux and Windows
 
+--- 
+
 ## Analysis
 
 - Multiple failed authentication attempts occurred within seconds from the same source IP.
@@ -169,6 +177,7 @@ Very High
 - On Windows, NTLM credential validation failures and network logon failures were recorded.
 - The attack pattern matches known brute-force behavior: high frequency, single user, single source.
 - Splunk successfully centralized and correlated authentication telemetry across platforms.
+--- 
 
 ## SOC Conclusion
 
