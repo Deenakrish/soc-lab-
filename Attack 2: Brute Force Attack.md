@@ -87,6 +87,7 @@ Although a full RDP session was not established, multiple credential validation 
 - Result: Multiple authentication failures
 
 These logs confirm repeated failed SSH login attempts originating from a single external IP address, a strong indicator of brute-force behavior.
+ 
 --- 
 
 ## Windows – Raw Log Output
@@ -119,7 +120,9 @@ These logs confirm repeated failed SSH login attempts originating from a single 
 - Error Code: 0xC000006A (Invalid credentials)
 
 These events confirm repeated remote credential validation failures typical of brute-force attacks against Windows network services.
+
 --- 
+
 ## Detection Logic (Splunk SPL)
 ### Ubuntu – SSH Brute Force Detection
 
@@ -182,6 +185,8 @@ Very High
 ## SOC Conclusion
 
 This simulation demonstrates how brute-force attacks are detected through authentication failure patterns in both Linux and Windows environments. Event frequency, source consistency, and failure reasons provide strong indicators for SOC analysts to identify, validate, and escalate brute-force activity effectively.
+
+--- 
 
 ## Mitigation & Response
 
